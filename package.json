@@ -1,0 +1,19 @@
+{
+  "name": "countries-capitals-app",
+  "version": "0.0.0",
+  "description": "Thinkful challenge: code up an Angular app that allows users to search and visualize data about countries and capital cities.",
+  "main": "app/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bboyle/countries-capitals-app.git"
+  },
+  "author": "Ben Boyle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bboyle/countries-capitals-app/issues"
+  },
+  "homepage": "https://github.com/bboyle/countries-capitals-app"
+}
