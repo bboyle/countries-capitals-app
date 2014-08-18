@@ -1,6 +1,6 @@
-angular.module( 'geonamesLibrary', [])
-.constant( 'LIST_COUNTRIES_URL', 'http://api.geonames.org/countryInfo?username={{ username }}&type=JSON')
-.constant( 'GEONAMES_USER', 'bboyle')
+angular.module( 'geonamesLibrary', [] )
+.constant( 'LIST_COUNTRIES_URL', 'http://api.geonames.org/countryInfo?username={{ username }}&type=JSON' )
+.constant( 'GEONAMES_USER', 'bboyle' )
 
 
 // geonames API requests
@@ -25,7 +25,7 @@ angular.module( 'geonamesLibrary', [])
 .factory( 'listCountries', [ 'geonamesRequest', '$interpolate', 'LIST_COUNTRIES_URL',
                    function(  geonamesRequest,   $interpolate,   LIST_COUNTRIES_URL ) {
 	return function() {
-		return owmRequest( LIST_COUNTRIES_URL );
+		return geonamesRequest( LIST_COUNTRIES_URL );
 	}
 }])
 ;
