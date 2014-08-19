@@ -1,13 +1,16 @@
 angular.module( 'geonamesLibrary', [] )
-.constant( 'LIST_COUNTRIES_URL', 'http://api.geonames.org/countryInfo' )
+.constant( 'GEONAMES_BASE_HREF', 'http://api.geonames.org' )
+.constant( 'LIST_COUNTRIES_ENDPOINT', '/countryInfo' )
+.constant( 'SEARCH_ENDPOINT', '/search' )
+.constant( 'NEIGHBOURS_ENDPOINT', '/neighbours' )
 .constant( 'GEONAMES_USER', 'bboyle' )
 
 
 // geonames API requests
-.factory( 'geonamesRequest', [ '$http', '$q', 'GEONAMES_USER',
-                     function(  $http,   $q,   GEONAMES_USER ) {
+.factory( 'geonamesRequest', [ '$http', '$q', 'GEONAMES_BASE_HREF', 'GEONAMES_USER',
+                      function( $http,   $q,   GEONAMES_BASE_HREF,   GEONAMES_USER ) {
 
-	return function( url, params ) {
+	return function( endpoint, params ) {
 		params = params || {};
 		var defer = $q.defer();
 
@@ -15,7 +18,7 @@ angular.module( 'geonamesLibrary', [] )
 		params.username = GEONAMES_USER;
 		params.type = 'JSON';
 
-		$http.get( url, {
+		$http.get( GEONAMES_BASE_HREF + endpoint, {
 			params: params,
 			cache: true
 		})
@@ -30,11 +33,69 @@ angular.module( 'geonamesLibrary', [] )
 
 // get list of countries
 // http://www.geonames.org/export/web-services.html#countryInfo
-.factory( 'listCountries', [ 'geonamesRequest', '$interpolate', 'LIST_COUNTRIES_URL',
-                   function(  geonamesRequest,   $interpolate,   LIST_COUNTRIES_URL ) {
+.factory( 'listCountries', [ 'geonamesRequest', 'LIST_COUNTRIES_ENDPOINT',
+                    function( geonamesRequest,   LIST_COUNTRIES_ENDPOINT ) {
 
 	return function() {
-		return geonamesRequest( LIST_COUNTRIES_URL );
+		return geonamesRequest( LIST_COUNTRIES_ENDPOINT );
+	}
+}])
+
+
+// get information about a capital city
+.factory( 'getCapitalInfo', [ 'geonamesRequest', 'SEARCH_ENDPOINT',
+                     function( geonamesRequest, SEARCH_ENDPOINT ) {
+
+	return function( capitalName ) {
+		return geonamesRequest( SEARCH_ENDPOINT, {
+			name: capitalName,
+			// Capitals only: http://www.geonames.org/export/codes.html
+			featureCode: 'PPLC'
+		});
+	}
+}])
+
+
+// get country details
+.factory( 'getCountryInfo', [ 'geonamesRequest', 'listCountries', 'getCapitalInfo', 'listNeighbours',
+                     function( geonamesRequest,   listCountries,   getCapitalInfo,   listNeighbours ) {
+
+	var countriesByCode = {};
+
+	return function( countryCode ) {
+		if ( countriesByCode[ countryCode ]) {
+			return countriesByCode[ countryCode ];
+		}
+
+		return listCountries().then(function( data ) {
+			var i;
+			for ( i = 0; i < data.geonames.length && data.geonames[ i ].countryCode !== countryCode; i++ );
+			countriesByCode[ countryCode ] = data.geonames[ i ];
+
+			// lookup capital information
+			return getCapitalInfo( countriesByCode[ countryCode ].capital ).then(function( data ) {
+				countriesByCode[ countryCode ].capital = data.geonames[ 0 ];
+
+				// get list of neighbours
+				return listNeighbours( countriesByCode[ countryCode ].geonameId ).then(function( data ) {
+					countriesByCode[ countryCode ].neighbours = data.geonames;
+
+					return countriesByCode[ countryCode ];
+				});
+			});
+		});
+	};
+}])
+
+
+// get neighbours
+.factory( 'listNeighbours', [ 'geonamesRequest', 'NEIGHBOURS_ENDPOINT',
+                     function( geonamesRequest, NEIGHBOURS_ENDPOINT ) {
+
+	return function( id ) {
+		return geonamesRequest( NEIGHBOURS_ENDPOINT, {
+			geonameId: id
+		});
 	}
 }])
 ;

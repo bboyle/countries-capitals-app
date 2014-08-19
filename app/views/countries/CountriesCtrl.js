@@ -3,7 +3,7 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 	$routeProvider.when( '/countries', {
 		templateUrl: 'views/countries/countries.html',
 		controller: 'CountriesCtrl',
-		controllerAs: 'countries',
+		controllerAs: 'vm',
 
 		resolve: {
 			countriesList: [ 'listCountries', function( listCountries ) {
