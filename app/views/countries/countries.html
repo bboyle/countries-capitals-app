@@ -11,12 +11,12 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="country in countries.countries">
-			<td><a href="#/countries/{{ country.Code }}/">{{ country.Name }}</a></td>
-			<td>{{ country.Code }}</td>
-			<td>{{ country.Capital }}</td>
-			<td>{{ country.Area }}</td>
-			<td>{{ country.Population }}</td>
-			<td>{{ country.Continent }}</td>
+			<td><a href="#/countries/{{ country.code }}/">{{ country.countryName }}</a></td>
+			<td>{{ country.countryCode }}</td>
+			<td>{{ country.capital }}</td>
+			<td>{{ country.areaInSqKm }}</td>
+			<td>{{ country.population }}</td>
+			<td>{{ country.continentName }}</td>
 		</tr>
 	</tbody>
 </table>

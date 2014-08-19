@@ -9,9 +9,9 @@ angular.module( 'geonamesLibrary', [] )
 
 	return function( url ) {
 		var defer = $q.defer();
-		url = $interpolate( url, { username: GEONAMES_USER });
+		url = $interpolate( url )({ username: GEONAMES_USER });
 
-		$http.get( API_URL )
+		$http.get( url )
 		.success(function( data ) {
 			defer.resolve( data );
 		});

@@ -1,30 +1,24 @@
-angular.module( 'countriesCapitalsApp' )
+viewsModule.config([ '$routeProvider', function( $routeProvider ) {
+	// list of countries
+	$routeProvider.when( '/countries', {
+		templateUrl: 'views/countries/countries.html',
+		controller: 'CountriesCtrl',
+		controllerAs: 'countries',
 
-.controller( 'CountriesCtrl', function() {
+		resolve: {
+			countriesList: [ 'listCountries', function( listCountries ) {
+				return listCountries();
+			}]
+		}
+	});
+}]);
 
-   	var ctrl = this;
 
-	ctrl.countries = [{
-		'Name': 'Afghanistan',
-		'Code': 'AF',
-		'Capital': 'Kabul',
-		'Area': '647,500',
-		'Population': '2,912,286',
-		'Continent': 'AS',
-	}, {
-		'Name': 'Albania',
-		'Code': 'AL',
-		'Capital': 'Tirana',
-		'Area': '28,740',
-		'Population': '2,986,952',
-		'Continent': 'EU',
-	}, {
-		'Name': 'Zimbabwe',
-		'Code': 'ZW',
-		'Capital': 'Harare',
-		'Area': '390,580',
-		'Population': '11,651,000',
-		'Continent': 'AF',
-	}];
+viewsModule.controller( 'CountriesCtrl', [ 'countriesList',
+                                 function(  countriesList ) {
 
-});
+   	var vm = this;
+
+   	vm.countries = countriesList.geonames;
+
+}]);
