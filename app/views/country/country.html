@@ -20,9 +20,9 @@
 	</dd>
 </dl>
 
-<div class="wireframe-image">MAP</div>
+<div class="map"><img ng-src="http://www.geonames.org/img/country/250/{{ vm.country.countryCode | uppercase }}.png" alt="Map of {{ vm.country.countryName }}"></div>
 
-<div class="wireframe-image">FLAG</div>
+<div class="flag"><img ng-src="http://www.geonames.org/flags/x/{{ vm.country.countryCode | lowercase }}.gif" alt="Flag of {{ vm.country.countryName }}"></div>
 
 
 <nav>
