@@ -1,17 +1,17 @@
-<h2>USA</h2>
+<h2>{{ vm.country.countryName }}</h2>
 
 <dl>
 	<dt>Population</dt>
-	<dd>313,000,000</dd>
+	<dd>{{ vm.country.population | number : 0 }}</dd>
 
 	<dt>Area</dt>
-	<dd>9,147,000 square km</dd>
+	<dd>{{ vm.country.areaInSqKm | number : 0 }} square km</dd>
 
 	<dt>Capital</dt>
-	<dd>Washington DC</dd>
+	<dd>{{ vm.country.capital }}</dd>
 
 	<dt>Population of capital</dt>
-	<dd>632,323</dd>
+	<dd>{{ vm.country.population | number : 0 }}</dd>
 
 	<dt>3 neighbours</dt>
 	<dd><ul>
