@@ -13,12 +13,11 @@
 	<dt>Population of capital</dt>
 	<dd>{{ vm.country.capital.population | number : 0 }}</dd>
 
-	<dt>3 neighbours</dt>
-	<dd><ul>
-		<li><a href="#/countries/CA">Canada</a></li>
-		<li><a href="#/countries/XX">Cuba</a></li>
-		<li><a href="#/countries/MX">Mexico</a></li>
-	</ul></dd>
+	<dt><ng-pluralize count="vm.country.neighbours.length" when="{ 0: 'No neighbours', 1: 'One neighbour', other: '{} neigbours'}"></ng-pluralize></dt>
+	<dd>
+		<span ng-if="vm.country.neighbours.length < 1">-</span>
+		<span ng-repeat="neighbour in vm.country.neighbours"><a href="#/countries/{{ neighbour.countryCode }}">{{ neighbour.countryName }}</a><span ng-if=" ! $last">, </span></span>
+	</dd>
 </dl>
 
 <div class="wireframe-image">MAP</div>

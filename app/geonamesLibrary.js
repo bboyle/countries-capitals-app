@@ -2,6 +2,7 @@ angular.module( 'geonamesLibrary', [] )
 .constant( 'GEONAMES_BASE_HREF', 'http://api.geonames.org' )
 .constant( 'LIST_COUNTRIES_ENDPOINT', '/countryInfo' )
 .constant( 'SEARCH_ENDPOINT', '/search' )
+.constant( 'NEIGHBOURS_ENDPOINT', '/neighbours' )
 .constant( 'GEONAMES_USER', 'bboyle' )
 
 
@@ -45,7 +46,6 @@ angular.module( 'geonamesLibrary', [] )
 .factory( 'getCapitalInfo', [ 'geonamesRequest', 'SEARCH_ENDPOINT',
                      function( geonamesRequest, SEARCH_ENDPOINT ) {
 
-
 	return function( capitalName ) {
 		return geonamesRequest( SEARCH_ENDPOINT, {
 			name: capitalName,
@@ -57,8 +57,8 @@ angular.module( 'geonamesLibrary', [] )
 
 
 // get country details
-.factory( 'getCountryInfo', [ 'geonamesRequest', 'listCountries', 'getCapitalInfo',
-                     function( geonamesRequest,   listCountries,   getCapitalInfo ) {
+.factory( 'getCountryInfo', [ 'geonamesRequest', 'listCountries', 'getCapitalInfo', 'listNeighbours',
+                     function( geonamesRequest,   listCountries,   getCapitalInfo,   listNeighbours ) {
 
 	var countriesByCode = {};
 
@@ -74,10 +74,27 @@ angular.module( 'geonamesLibrary', [] )
 
 			// lookup capital information
 			return getCapitalInfo( countriesByCode[ countryCode ].capital ).then(function( data ) {
-				// nest the capital data in place of the existing capital name
 				countriesByCode[ countryCode ].capital = data.geonames[ 0 ];
-				return countriesByCode[ countryCode ];
+
+				// get list of neighbours
+				return listNeighbours( countriesByCode[ countryCode ].geonameId ).then(function( data ) {
+					countriesByCode[ countryCode ].neighbours = data.geonames;
+
+					return countriesByCode[ countryCode ];
+				});
 			});
+		});
+	};
+}])
+
+
+// get neighbours
+.factory( 'listNeighbours', [ 'geonamesRequest', 'NEIGHBOURS_ENDPOINT',
+                     function( geonamesRequest, NEIGHBOURS_ENDPOINT ) {
+
+	return function( id ) {
+		return geonamesRequest( NEIGHBOURS_ENDPOINT, {
+			geonameId: id
 		});
 	}
 }])
