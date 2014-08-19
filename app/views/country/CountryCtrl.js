@@ -1,32 +1,24 @@
 viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 	// individual country details
-	$routeProvider.when( '/countries/:code', {
+	$routeProvider.when( '/countries/:countryCode', {
 		templateUrl: 'views/country/country.html',
 		controller: 'CountryCtrl',
 		controllerAs: 'vm',
 
 		resolve: {
-			countries: [ 'listCountries', function( listCountries ) {
-				return listCountries();
-			}],
-			countryCode: [ '$route', function( $route ) {
-				return $route.current.params.code;
+			country: [ 'getCountryInfo', '$route', function( getCountryInfo, $route ) {
+				return getCountryInfo( $route.current.params.countryCode );
 			}]
 		}
 	});
 }]);
 
 
-viewsModule.controller( 'CountryCtrl', [ 'countries', 'countryCode',
-                                 function(  countries,   countryCode ) {
+viewsModule.controller( 'CountryCtrl', [ 'country',
+                               function(  country ) {
 
-   	var vm = this;
+	var vm = this;
 
-   	// find country
-   	var i;
-   	for ( i = 0; i < countries.geonames.length && countries.geonames[ i ].countryCode !== countryCode; i++ );
-
-   	console.log( countries.geonames.length, i, countries.geonames[ i ] );
-   	vm.country = countries.geonames[ i ];
+	vm.country = country;
 
 }]);

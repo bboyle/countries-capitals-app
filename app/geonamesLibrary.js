@@ -30,11 +30,32 @@ angular.module( 'geonamesLibrary', [] )
 
 // get list of countries
 // http://www.geonames.org/export/web-services.html#countryInfo
-.factory( 'listCountries', [ 'geonamesRequest', '$interpolate', 'LIST_COUNTRIES_URL',
-                   function(  geonamesRequest,   $interpolate,   LIST_COUNTRIES_URL ) {
+.factory( 'listCountries', [ 'geonamesRequest', 'LIST_COUNTRIES_URL',
+                   function(  geonamesRequest,   LIST_COUNTRIES_URL ) {
 
 	return function() {
 		return geonamesRequest( LIST_COUNTRIES_URL );
+	}
+}])
+
+
+// get country details
+.factory( 'getCountryInfo', [ 'geonamesRequest', 'listCountries',
+                    function(  geonamesRequest,   listCountries ) {
+
+	var countriesByCode = {};
+
+	return function( countryCode ) {
+		if ( countriesByCode[ countryCode ]) {
+			return countriesByCode[ countryCode ];
+		}
+
+		return listCountries().then(function( data ) {
+			var i;
+			for ( i = 0; i < data.geonames.length && data.geonames[ i ].countryCode !== countryCode; i++ );
+			countriesByCode[ countryCode ] = data.geonames[ i ];
+			return countriesByCode[ countryCode ];
+		});
 	}
 }])
 ;
