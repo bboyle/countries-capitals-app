@@ -1,4 +1,4 @@
-angular.module( 'countriesCapitalsApp', [ 'ngRoute' ])
+angular.module( 'countriesCapitalsApp', [ 'countryCapitalsAppViews', 'ngRoute' ])
 .config([ '$routeProvider', function( $routeProvider ) {
 
 	$routeProvider
@@ -6,15 +6,10 @@ angular.module( 'countriesCapitalsApp', [ 'ngRoute' ])
 	// home
 	.when( '/', { templateUrl: 'views/index.html' })
 
-	// list of countries
-	.when( '/countries', {
-		templateUrl: 'views/countries/countries.html',
-		controller: 'CountriesCtrl',
-		controllerAs: 'countries'
-	})
 
 	// individual country details
 	.when( '/countries/:code', { templateUrl: 'views/country/country.html' })
+
 
 	.otherwise({ redirectTo : '/' });
 
