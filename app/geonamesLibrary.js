@@ -1,17 +1,24 @@
 angular.module( 'geonamesLibrary', [] )
-.constant( 'LIST_COUNTRIES_URL', 'http://api.geonames.org/countryInfo?username={{ username }}&type=JSON' )
+.constant( 'LIST_COUNTRIES_URL', 'http://api.geonames.org/countryInfo' )
 .constant( 'GEONAMES_USER', 'bboyle' )
 
 
 // geonames API requests
-.factory( 'geonamesRequest', [ '$http', '$interpolate', '$q', 'GEONAMES_USER',
-                     function(  $http,   $interpolate,   $q,   GEONAMES_USER ) {
+.factory( 'geonamesRequest', [ '$http', '$q', 'GEONAMES_USER',
+                     function(  $http,   $q,   GEONAMES_USER ) {
 
-	return function( url ) {
+	return function( url, params ) {
+		params = params || {};
 		var defer = $q.defer();
-		url = $interpolate( url )({ username: GEONAMES_USER });
 
-		$http.get( url, { cache: true })
+		// hardcode user and format
+		params.username = GEONAMES_USER;
+		params.type = 'JSON';
+
+		$http.get( url, {
+			params: params,
+			cache: true
+		})
 		.success(function( data ) {
 			defer.resolve( data );
 		});
