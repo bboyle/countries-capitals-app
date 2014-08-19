@@ -10,21 +10,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td><a href="#/countries/AF/">Afghanistan</a></td>
-			<td>AF</td>
-			<td>Kabul</td>
-			<td>647,500</td>
-			<td>2,912,286</td>
-			<td>AS</td>
-		</tr>
-		<tr>
-			<td><a href="#/countries/AL/">Albania</a></td>
-			<td>AL</td>
-			<td>Tirana</td>
-			<td>28,740</td>
-			<td>2,986,952</td>
-			<td>EU</td>
+		<tr ng-repeat="country in countries.countries">
+			<td><a href="#/countries/{{ country.code }}/">{{ country.countryName }}</a></td>
+			<td>{{ country.countryCode }}</td>
+			<td>{{ country.capital }}</td>
+			<td class="number">{{ country.areaInSqKm | number : 0 }}</td>
+			<td class="number">{{ country.population | number : 0 }}</td>
+			<td>{{ country.continentName }}</td>
 		</tr>
 	</tbody>
 </table>
