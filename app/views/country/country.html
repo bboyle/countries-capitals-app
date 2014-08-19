@@ -8,10 +8,10 @@
 	<dd>{{ vm.country.areaInSqKm | number : 0 }} square km</dd>
 
 	<dt>Capital</dt>
-	<dd>{{ vm.country.capital }}</dd>
+	<dd>{{ vm.country.capital.name }}</dd>
 
 	<dt>Population of capital</dt>
-	<dd>{{ vm.country.population | number : 0 }}</dd>
+	<dd>{{ vm.country.capital.population | number : 0 }}</dd>
 
 	<dt>3 neighbours</dt>
 	<dd><ul>
