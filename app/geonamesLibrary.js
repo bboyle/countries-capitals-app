@@ -11,7 +11,7 @@ angular.module( 'geonamesLibrary', [] )
 		var defer = $q.defer();
 		url = $interpolate( url )({ username: GEONAMES_USER });
 
-		$http.get( url )
+		$http.get( url, { cache: true })
 		.success(function( data ) {
 			defer.resolve( data );
 		});
