@@ -23,6 +23,12 @@ h1 {
 	margin-top: 0;
 }
 
+
+.number {
+	text-align: right;
+}
+
+
 table {
 	border-collapse: collapse;
 }
