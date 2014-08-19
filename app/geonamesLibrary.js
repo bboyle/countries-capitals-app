@@ -17,7 +17,7 @@ angular.module( 'geonamesLibrary', [] )
 		});
 
 		return defer.promise;
-}
+	}
 }])
 
 
