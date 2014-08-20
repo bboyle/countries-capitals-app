@@ -15,8 +15,10 @@ angular.module( 'geonamesLibrary', [] )
 		var defer = $q.defer();
 
 		// hardcode user and format
-		params.username = GEONAMES_USER;
-		params.type = 'JSON';
+		angular.extend( params, {
+			username: GEONAMES_USER,
+			type: 'JSON',
+		});
 
 		$http.get( GEONAMES_BASE_HREF + endpoint, {
 			params: params,
@@ -42,23 +44,27 @@ angular.module( 'geonamesLibrary', [] )
 }])
 
 
-// get information about a capital city
+// getCapitalInfo( countryObject )
+// extend a country with additional information about the capital
 .factory( 'getCapitalInfo', [ 'geonamesRequest', 'SEARCH_ENDPOINT',
                      function( geonamesRequest, SEARCH_ENDPOINT ) {
 
-	return function( capitalName ) {
+	return function( country ) {
 		return geonamesRequest( SEARCH_ENDPOINT, {
-			name: capitalName,
+			name: country.capital.name,
 			// Capitals only: http://www.geonames.org/export/codes.html
 			featureCode: 'PPLC'
+		}).then(function( data ) {
+			// extend country data with capital info
+			angular.extend( country.capital, data.geonames[ 0 ]);
 		});
 	}
 }])
 
 
 // get country details
-.factory( 'getCountryInfo', [ 'geonamesRequest', 'listCountries', 'getCapitalInfo', 'listNeighbours',
-                     function( geonamesRequest,   listCountries,   getCapitalInfo,   listNeighbours ) {
+.factory( 'getCountryInfo', [ 'geonamesRequest', 'listCountries',
+                     function( geonamesRequest,   listCountries ) {
 
 	var countriesByCode = {};
 
@@ -71,30 +77,23 @@ angular.module( 'geonamesLibrary', [] )
 			var i;
 			for ( i = 0; i < data.geonames.length && data.geonames[ i ].countryCode !== countryCode; i++ );
 			countriesByCode[ countryCode ] = data.geonames[ i ];
+			// refactor model to support extending capital data
+			countriesByCode[ countryCode ].capital = { name: countriesByCode[ countryCode ].capital };
 
-			// lookup capital information
-			return getCapitalInfo( countriesByCode[ countryCode ].capital ).then(function( data ) {
-				countriesByCode[ countryCode ].capital = data.geonames[ 0 ];
-
-				// get list of neighbours
-				return listNeighbours( countriesByCode[ countryCode ].geonameId ).then(function( data ) {
-					countriesByCode[ countryCode ].neighbours = data.geonames;
-
-					return countriesByCode[ countryCode ];
-				});
-			});
+			return countriesByCode[ countryCode ];
 		});
 	};
 }])
 
 
-// get neighbours
+// get neighbours( countryObject )
+// returns a list of neighbouring countries
 .factory( 'listNeighbours', [ 'geonamesRequest', 'NEIGHBOURS_ENDPOINT',
-                     function( geonamesRequest, NEIGHBOURS_ENDPOINT ) {
+                     function( geonamesRequest,   NEIGHBOURS_ENDPOINT ) {
 
-	return function( id ) {
+	return function( country ) {
 		return geonamesRequest( NEIGHBOURS_ENDPOINT, {
-			geonameId: id
+			geonameId: country.geonameId
 		});
 	}
 }])

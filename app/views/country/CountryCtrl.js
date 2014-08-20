@@ -14,11 +14,19 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 }]);
 
 
-viewsModule.controller( 'CountryCtrl', [ 'country',
-                               function(  country ) {
+viewsModule.controller( 'CountryCtrl', [ 'country', 'getCapitalInfo', 'listNeighbours',
+                               function(  country,   getCapitalInfo,   listNeighbours ) {
 
 	var vm = this;
 
 	vm.country = country;
+
+	// lazy load capital details
+	getCapitalInfo( country );
+
+	// lazy load neighbours
+	listNeighbours( country ).then(function( data ) {
+		vm.neighbours = data.geonames;
+	});
 
 }]);
