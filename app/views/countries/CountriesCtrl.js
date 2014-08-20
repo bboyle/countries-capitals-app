@@ -6,8 +6,8 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 		controllerAs: 'vm',
 
 		resolve: {
-			countriesList: [ 'listCountries', function( listCountries ) {
-				return listCountries();
+			countriesList: [ 'countryCapitalsModel', function( countryCapitalsModel ) {
+				return countryCapitalsModel.listCountries();
 			}]
 		}
 	});
@@ -15,10 +15,9 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 
 
 viewsModule.controller( 'CountriesCtrl', [ 'countriesList',
-                                 function(  countriesList ) {
+function(                                   countriesList ) {
 
    	var vm = this;
-
    	vm.countries = countriesList.geonames;
 
 }]);

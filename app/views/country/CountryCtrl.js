@@ -6,26 +6,26 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 		controllerAs: 'vm',
 
 		resolve: {
-			country: [ 'getCountryInfo', '$route', function( getCountryInfo, $route ) {
-				return getCountryInfo( $route.current.params.countryCode );
+			country: [ 'countryCapitalsModel', '$route',
+			function(   countryCapitalsModel,   $route ) {
+				return countryCapitalsModel.getCountry( $route.current.params.countryCode );
 			}]
 		}
 	});
 }]);
 
 
-viewsModule.controller( 'CountryCtrl', [ 'country', 'getCapitalInfo', 'listNeighbours',
-                               function(  country,   getCapitalInfo,   listNeighbours ) {
+viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel',
+                               function(  country,   countryCapitalsModel ) {
 
 	var vm = this;
-
 	vm.country = country;
 
 	// lazy load capital details
-	getCapitalInfo( country );
+	countryCapitalsModel.extendCountryInfoWithCapital( country );
 
 	// lazy load neighbours
-	listNeighbours( country ).then(function( data ) {
+	countryCapitalsModel.getCountryNeighbours( country ).then(function( data ) {
 		vm.neighbours = data.geonames;
 	});
 
