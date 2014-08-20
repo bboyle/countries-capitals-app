@@ -44,24 +44,6 @@ angular.module( 'geonamesLibrary', [] )
 }])
 
 
-// getCapitalInfo( countryObject )
-// extend a country with additional information about the capital
-.factory( 'getCapitalInfo', [ 'geonamesRequest', 'SEARCH_ENDPOINT',
-                     function( geonamesRequest, SEARCH_ENDPOINT ) {
-
-	return function( country ) {
-		return geonamesRequest( SEARCH_ENDPOINT, {
-			name: country.capital.name,
-			// Capitals only: http://www.geonames.org/export/codes.html
-			featureCode: 'PPLC'
-		}).then(function( data ) {
-			// extend country data with capital info
-			angular.extend( country.capital, data.geonames[ 0 ]);
-		});
-	}
-}])
-
-
 // get country details
 .factory( 'getCountryInfo', [ 'geonamesRequest', 'listCountries',
                      function( geonamesRequest,   listCountries ) {
@@ -83,6 +65,24 @@ angular.module( 'geonamesLibrary', [] )
 			return countriesByCode[ countryCode ];
 		});
 	};
+}])
+
+
+// getCapitalInfo( countryObject )
+// extend a country with additional information about the capital
+.factory( 'getCapitalInfo', [ 'geonamesRequest', 'SEARCH_ENDPOINT',
+                     function( geonamesRequest, SEARCH_ENDPOINT ) {
+
+	return function( country ) {
+		return geonamesRequest( SEARCH_ENDPOINT, {
+			name: country.capital.name,
+			// Capitals only: http://www.geonames.org/export/codes.html
+			featureCode: 'PPLC'
+		}).then(function( data ) {
+			// extend country data with capital info
+			angular.extend( country.capital, data.geonames[ 0 ]);
+		});
+	}
 }])
 
 
