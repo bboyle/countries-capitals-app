@@ -6,9 +6,17 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 		controllerAs: 'vm',
 
 		resolve: {
-			country: [ 'countryCapitalsModel', '$route',
-			function(   countryCapitalsModel,   $route ) {
-				return countryCapitalsModel.getCountry( $route.current.params.countryCode );
+			country: [ 'countryCapitalsModel', '$route', '$location',
+			function(   countryCapitalsModel,   $route,   $location ) {
+				var country = countryCapitalsModel.getCountry( $route.current.params.countryCode );
+
+				if ( typeof country.name === 'undefined' ) {
+					// no country match
+					$location.path( '/error' );
+					return;
+				}
+
+				return country;
 			}]
 		}
 	});
