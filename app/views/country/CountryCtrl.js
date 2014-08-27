@@ -15,8 +15,14 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 }]);
 
 
-viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel',
-                               function(  country,   countryCapitalsModel ) {
+viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$location',
+                               function(  country,   countryCapitalsModel,   $location ) {
+
+	// check for country data
+	if ( typeof country === 'undefined' ) {
+		$location.path( '/country-not-found' );
+		return;
+	}
 
 	var vm = this;
 	vm.country = country;

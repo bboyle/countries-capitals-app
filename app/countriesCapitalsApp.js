@@ -3,16 +3,12 @@ angular.module( 'countriesCapitalsApp', [ 'countryCapitalsAppViews', 'ngRoute', 
 
 	$routeProvider
 	.when( '/', { templateUrl: 'views/index.html' })
+	.when( '/country-not-found', { templateUrl: 'views/error/countryNotFound.html' })
 	.otherwise({ redirectTo : '/' });
 
 }])
 
 .run([ '$rootScope', function( $rootScope ) {
-	// $rootScope.$on( '$routeChangeError', function() {
-	// 	$rootScope.isLoading = false;
-	// 	$location.path( '/error' );
-	// });
-
 	$rootScope.$on( '$routeChangeStart', function() {
 		$rootScope.isLoading = true;
 		$rootScope.loadingPercent = 10;
