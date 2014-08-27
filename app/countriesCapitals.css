@@ -1,7 +1,7 @@
 body {
 	font: 100%/1.5 "Merriweather", Georgia, serif;
-	background: skyblue;
-	color: navy;
+	background: #fcfbfa;
+	color: #321;
 	margin: 0;
 	padding: 2em;
 }
@@ -30,7 +30,7 @@ th:last-child, td:last-child {
 	padding-right: 0;
 }
 thead th {
-	border-bottom: 1px solid navy;
+	border-bottom: 1px solid #321;
 }
 
 /* nav buttons */
@@ -39,7 +39,7 @@ nav {
 }
 nav a {
 	display: inline-block;
-	background: navy;
-	color: skyblue;
+	background: #321;
+	color: #fcfbfa;
 	padding: .3em 1em;
 }
