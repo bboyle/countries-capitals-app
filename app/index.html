@@ -13,6 +13,10 @@
 	<h1>Countries and capitals</h1>
 
 
+	<aside class="loading" ng-if="loadingPercent < 100">
+		<!-- <progress max="100" value="{{ loadingPercent }}">Loading… {{ loadingPercent | number }}%</progress> -->
+		<progress>Loading…</progress>
+	</aside>
 	<main ng-view></main>
 
 
