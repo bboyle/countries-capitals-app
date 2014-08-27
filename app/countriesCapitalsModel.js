@@ -12,9 +12,7 @@ angular.module( 'countryCapitalsAppModel', [ 'geonamesLibrary' ] )
 		getCountry: function( countryCode ) {
 			return geonames.getCountry( countryCode ).then(function( country ) {
 				// prep for extending capital info
-				if ( typeof country !== 'undefined' ) {
-					country.capital = { name: country.capital };
-				}
+				country.capital = { name: country.capital };
 				return country;
 			});
 		},
