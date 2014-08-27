@@ -16,12 +16,10 @@ angular.module( 'countriesCapitalsApp', [ 'countryCapitalsAppViews', 'ngRoute', 
 	$rootScope.$on( '$routeChangeStart', function() {
 		$rootScope.isLoading = true;
 		$rootScope.loadingPercent = 10;
-		console.log( 'routeChangeStart', $rootScope.isLoading, $rootScope.loadingPercent );
 	});
 	$rootScope.$on( '$routeChangeSuccess', function() {
 		$rootScope.isLoading = false;
 		$rootScope.loadingPercent = 100;
-		console.log( 'routeChangeSuccess', $rootScope.isLoading, $rootScope.loadingPercent );
 	});
 
 }]);
