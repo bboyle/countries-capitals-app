@@ -17,6 +17,20 @@ h1 {
 
 table {
 	border-collapse: collapse;
+	overflow: hidden;
+}
+tr.country.ng-enter-stagger {
+	transition-delay: .1s;
+	transition-duration: 0;
+}
+tr.country.ng-enter {
+	transform: translateX( 100% );
+	opacity: 0;
+	transition: transform cubic-bezier(.28,.94,.79,1.06) .3s, opacity cubic-bezier(1,0,1,1) .4s;
+}
+tr.country.ng-enter-active {
+	transform: translateX( 0 );
+	opacity: 1;
 }
 th, td {
 	text-align: left;

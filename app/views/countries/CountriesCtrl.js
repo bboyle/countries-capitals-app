@@ -14,10 +14,15 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 }]);
 
 
-viewsModule.controller( 'CountriesCtrl', [ 'countriesList',
-function(                                   countriesList ) {
+viewsModule.controller( 'CountriesCtrl', [ 'countriesList', '$timeout',
+function(                                   countriesList,   $timeout ) {
 
    	var vm = this;
-   	vm.countries = countriesList.geonames;
+   	vm.countries = [];
+
+   	// delay countries data (required to trigger ngrepeat animation when view loads)
+   	$timeout(function() {
+		vm.countries = countriesList.geonames;
+   	}, 1 );
 
 }]);

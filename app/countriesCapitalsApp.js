@@ -1,4 +1,4 @@
-angular.module( 'countriesCapitalsApp', [ 'countryCapitalsAppViews', 'ngRoute' ])
+angular.module( 'countriesCapitalsApp', [ 'countryCapitalsAppViews', 'ngRoute', 'ngAnimate' ])
 .config([ '$routeProvider', function( $routeProvider ) {
 
 	$routeProvider

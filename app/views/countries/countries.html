@@ -10,7 +10,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="country in vm.countries">
+		<tr class="country" ng-repeat="country in vm.countries">
 			<td><a href="#/countries/{{ country.countryCode }}/">{{ country.countryName }}</a></td>
 			<td>{{ country.countryCode }}</td>
 			<td>{{ country.capital }}</td>
