@@ -23,13 +23,13 @@ tr:nth-child(2n) {
 	background: rgba( 0, 0, 0, 0.03 );
 }
 tr.country.ng-enter-stagger {
-	transition-delay: .1s;
+	transition-delay: 10ms;
 	transition-duration: 0;
 }
 tr.country.ng-enter {
 	transform: translateX( 100% );
 	opacity: 0;
-	transition: transform cubic-bezier(.28,.94,.79,1.06) .3s, opacity cubic-bezier(1,0,1,1) .4s;
+	transition: transform cubic-bezier(.28,.94,.79,1.06) .3s, opacity cubic-bezier(1,0,1,1) .33s;
 }
 tr.country.ng-enter-active {
 	transform: translateX( 0 );
