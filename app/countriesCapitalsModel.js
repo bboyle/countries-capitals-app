@@ -20,6 +20,9 @@ angular.module( 'countryCapitalsAppModel', [ 'geonamesLibrary' ] )
 		},
 		extendCountryInfoWithCapital: function( country ) {
 			return geonames.search( country.capital.name, SEARCH_CODE_CAPITAL ).then(function( data ) {
+				// parse lat/long as floats
+				data.geonames[ 0 ].lat = parseFloat( data.geonames[ 0 ].lat );
+				data.geonames[ 0 ].lng = parseFloat( data.geonames[ 0 ].lng );
 				angular.extend( country.capital, data.geonames[ 0 ]);
 			});
 		},
