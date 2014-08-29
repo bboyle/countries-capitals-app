@@ -70,6 +70,7 @@ viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$lo
 	countryCapitalsModel.extendCountryInfoWithCapital( country ).then(function() {
 		// place marker for capital
 		var capital = vm.country.capital;
+		vm.country.capitalLoaded = true;
 
 		vm.map.markers.capital = {
 			lat: capital.lat,
@@ -106,6 +107,7 @@ viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$lo
 	// lazy load neighbours
 	countryCapitalsModel.getCountryNeighbours( country ).then(function( data ) {
 		vm.neighbours = data.geonames;
+		vm.country.neighboursLoaded = true;
 	});
 
 }]);
