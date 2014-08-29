@@ -15,8 +15,8 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 }]);
 
 
-viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$location',
-                               function(  country,   countryCapitalsModel,   $location ) {
+viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$location', '$interpolate',
+                               function(  country,   countryCapitalsModel,   $location,   $interpolate ) {
 
 	// check for country data
 	if ( typeof country === 'undefined' ) {
@@ -39,22 +39,31 @@ viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$lo
 	// http://tombatossals.github.io/angular-leaflet-directive/#!/examples/simple-map
 	vm.map = {
 		tiles: Esri_NatGeoWorldMap,
+		// debugging country bounds
+		// paths: {
+		// 	bounds: {
+		// 		color: 'rgba( 255, 255, 255, .5 )',
+		// 		weight: 8,
+		// 		latlngs: [
+		// 			{ lat: country.north, lng: country.east },
+		// 			{ lat: country.south, lng: country.east },
+		// 			{ lat: country.south, lng: country.west },
+		// 			{ lat: country.north, lng: country.west },
+		// 			{ lat: country.north, lng: country.east }
+		// 		]
+		// 	}
+		// },
 		maxbounds: {
-			northEast: {
-				lat: country.north,
-				lng: country.east
-			},
-			southWest: {
-				lat: country.south,
-				lng: country.west
-			}
+			northEast: { lat: country.north, lng: country.east },
+			southWest: { lat: country.south, lng: country.west }
 		},
-		markers: {},
-		// center: {
-		// 	lat: country.north - (( country.north - country.south ) / 2 ),
-		// 	lng: country.east - (( country.east - country.west ) / 2 ),
-		// 	zoom: 4
-		// }
+		markers: {
+			// debugging country bounds
+			// ne: { lat: country.north, lng: country.east, message: 'NorthEast: ' + country.north + ',' + country.east },
+			// se: { lat: country.south, lng: country.east, message: 'SouthEast: ' + country.south + ',' + country.east },
+			// sw: { lat: country.south, lng: country.west, message: 'SouthWest: ' + country.south + ',' + country.west },
+			// nw: { lat: country.north, lng: country.west, message: 'NorthWest: ' + country.north + ',' + country.west },
+		},
 	};
 
 	// lazy load capital details
@@ -65,8 +74,33 @@ viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$lo
 		vm.map.markers.capital = {
 			lat: capital.lat,
 			lng: capital.lng,
-			message: capital.name
+			message: $interpolate( '{{ name }} (population {{ population | number }})' )( capital ),
+			focus: true // shows message immediately
 		};
+
+		// check country bounds (e.g. capital of Equatorial Guinea is outside country bounds?)
+		var bounds = angular.extend( {}, vm.map.maxbounds );
+
+		if ( capital.lat > bounds.northEast.lat ) {
+			bounds.northEast.lat = capital.lat;
+		} else if ( capital.lat < bounds.southWest.lat ) {
+			bounds.southWest.lat = capital.lat;
+		}
+		if ( capital.lng > bounds.northEast.lng ) {
+			bounds.northEast.lng = capital.lng;
+		} else if ( capital.lng < bounds.southWest.lng ) {
+			bounds.southWest.lng = capital.lng;
+		}
+
+		vm.map.maxbounds = bounds;
+		// debugging country bounds
+		// vm.map.paths.bounds.latlngs = [
+		// 	{ lat: bounds.northEast.lat, lng: bounds.northEast.lng },
+		// 	{ lat: bounds.southWest.lat, lng: bounds.northEast.lng },
+		// 	{ lat: bounds.southWest.lat, lng: bounds.southWest.lng },
+		// 	{ lat: bounds.northEast.lat, lng: bounds.southWest.lng },
+		// 	{ lat: bounds.northEast.lat, lng: bounds.northEast.lng }
+		// ]
 	});
 
 	// lazy load neighbours
