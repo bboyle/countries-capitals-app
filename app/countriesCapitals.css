@@ -54,6 +54,17 @@ tr:last-child td {
 }
 
 
+/* fade in population */
+.lazy.ng-hide-remove {
+	display: block !important;
+	opacity: 0;
+}
+.lazy {
+	opacity: 1;
+	transition: opacity .7s;
+}
+
+
 /* nav buttons */
 nav {
 	margin: 2em 0;
