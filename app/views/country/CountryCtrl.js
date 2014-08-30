@@ -38,6 +38,7 @@ viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$lo
 	// map UI
 	// http://tombatossals.github.io/angular-leaflet-directive/#!/examples/simple-map
 	vm.map = {
+		config: { scrollWheelZoom: false },
 		tiles: Esri_NatGeoWorldMap,
 		maxbounds: {
 			northEast: { lat: country.north, lng: country.east },
