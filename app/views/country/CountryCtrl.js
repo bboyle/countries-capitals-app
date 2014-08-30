@@ -31,7 +31,7 @@ viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$lo
 	var Esri_NatGeoWorldMap = {
 		url: 'http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}',
 		options: {
-			attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+			attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, HERE, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, increment P Corp.',
 		}
 	};
 
