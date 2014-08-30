@@ -38,32 +38,13 @@ viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$lo
 	// map UI
 	// http://tombatossals.github.io/angular-leaflet-directive/#!/examples/simple-map
 	vm.map = {
+		config: { scrollWheelZoom: false },
 		tiles: Esri_NatGeoWorldMap,
-		// debugging country bounds
-		// paths: {
-		// 	bounds: {
-		// 		color: 'rgba( 255, 255, 255, .5 )',
-		// 		weight: 8,
-		// 		latlngs: [
-		// 			{ lat: country.north, lng: country.east },
-		// 			{ lat: country.south, lng: country.east },
-		// 			{ lat: country.south, lng: country.west },
-		// 			{ lat: country.north, lng: country.west },
-		// 			{ lat: country.north, lng: country.east }
-		// 		]
-		// 	}
-		// },
 		maxbounds: {
 			northEast: { lat: country.north, lng: country.east },
 			southWest: { lat: country.south, lng: country.west }
 		},
-		markers: {
-			// debugging country bounds
-			// ne: { lat: country.north, lng: country.east, message: 'NorthEast: ' + country.north + ',' + country.east },
-			// se: { lat: country.south, lng: country.east, message: 'SouthEast: ' + country.south + ',' + country.east },
-			// sw: { lat: country.south, lng: country.west, message: 'SouthWest: ' + country.south + ',' + country.west },
-			// nw: { lat: country.north, lng: country.west, message: 'NorthWest: ' + country.north + ',' + country.west },
-		},
+		markers: {},
 	};
 
 	// lazy load capital details
@@ -94,14 +75,6 @@ viewsModule.controller( 'CountryCtrl', [ 'country', 'countryCapitalsModel', '$lo
 		}
 
 		vm.map.maxbounds = bounds;
-		// debugging country bounds
-		// vm.map.paths.bounds.latlngs = [
-		// 	{ lat: bounds.northEast.lat, lng: bounds.northEast.lng },
-		// 	{ lat: bounds.southWest.lat, lng: bounds.northEast.lng },
-		// 	{ lat: bounds.southWest.lat, lng: bounds.southWest.lng },
-		// 	{ lat: bounds.northEast.lat, lng: bounds.southWest.lng },
-		// 	{ lat: bounds.northEast.lat, lng: bounds.northEast.lng }
-		// ]
 	});
 
 	// lazy load neighbours
