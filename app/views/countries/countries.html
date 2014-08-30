@@ -11,14 +11,9 @@
 		</tr>
 	</thead>
 	<tbody>
-<<<<<<< HEAD
-		<tr ng-repeat="country in countries.countries">
-			<td><a href="#/countries/{{ country.code }}/">{{ country.countryName }}</a></td>
-=======
 		<tr class="country" ng-repeat="country in vm.countries | limitTo: vm.pagination.page">
 			<td class="number">{{ vm.pagination.start + $index + 1 | number }}</td>
 			<td><a href="#/countries/{{ country.countryCode }}/">{{ country.countryName }}</a></td>
->>>>>>> master
 			<td>{{ country.countryCode }}</td>
 			<td>{{ country.capital }}</td>
 			<td class="number">{{ country.areaInSqKm | number : 0 }}</td>

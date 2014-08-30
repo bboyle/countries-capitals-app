@@ -1,24 +1,10 @@
-<<<<<<< HEAD
-angular.module( 'countriesCapitalsApp', [ 'countryCapitalsAppViews', 'ngRoute' ])
-=======
 angular.module( 'countriesCapitalsApp', [ 'countryCapitalsAppViews', 'ngRoute', 'ngAnimate', 'leaflet-directive' ])
->>>>>>> master
 .config([ '$routeProvider', function( $routeProvider ) {
 
 	$routeProvider
 
 	// home
 	.when( '/', { templateUrl: 'views/index.html' })
-<<<<<<< HEAD
-
-
-	// individual country details
-	.when( '/countries/:code', { templateUrl: 'views/country/country.html' })
-
-
-	.otherwise({ redirectTo : '/' });
-
-=======
 	.when( '/country-not-found', { templateUrl: 'views/error/countryNotFound.html' })
 	.otherwise({ redirectTo : '/' });
 
@@ -34,5 +20,4 @@ angular.module( 'countriesCapitalsApp', [ 'countryCapitalsAppViews', 'ngRoute', 
 		$rootScope.loadingPercent = 100;
 	});
 
->>>>>>> master
 }]);

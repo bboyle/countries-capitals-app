@@ -3,33 +3,17 @@ viewsModule.config([ '$routeProvider', function( $routeProvider ) {
 	$routeProvider.when( '/countries', {
 		templateUrl: 'views/countries/countries.html',
 		controller: 'CountriesCtrl',
-<<<<<<< HEAD
-		controllerAs: 'countries',
-
-		resolve: {
-			countriesList: [ 'listCountries', function( listCountries ) {
-				return listCountries();
-=======
 		controllerAs: 'vm',
 
 		resolve: {
 			countriesList: [ 'countryCapitalsModel', function( countryCapitalsModel ) {
 				return countryCapitalsModel.listCountries();
->>>>>>> master
 			}]
 		}
 	});
 }]);
 
 
-<<<<<<< HEAD
-viewsModule.controller( 'CountriesCtrl', [ 'countriesList',
-                                 function(  countriesList ) {
-
-   	var vm = this;
-
-   	vm.countries = countriesList.geonames;
-=======
 viewsModule.controller( 'CountriesCtrl', [ 'countriesList', '$timeout',
 function(                                   countriesList,   $timeout ) {
 
@@ -74,6 +58,5 @@ function(                                   countriesList,   $timeout ) {
 	$timeout(function() {
 		vm.refresh();
 	}, 1 );
->>>>>>> master
 
 }]);

@@ -1,15 +1,4 @@
 angular.module( 'geonamesLibrary', [] )
-<<<<<<< HEAD
-.constant( 'LIST_COUNTRIES_URL', 'http://api.geonames.org/countryInfo' )
-.constant( 'GEONAMES_USER', 'bboyle' )
-
-
-// geonames API requests
-.factory( 'geonamesRequest', [ '$http', '$q', 'GEONAMES_USER',
-                     function(  $http,   $q,   GEONAMES_USER ) {
-
-	return function( url, params ) {
-=======
 .constant( 'GEONAMES_BASE_HREF', 'http://api.geonames.org' )
 .constant( 'LIST_COUNTRIES_ENDPOINT', '/countryInfo' )
 .constant( 'SEARCH_ENDPOINT', '/search' )
@@ -23,24 +12,16 @@ angular.module( 'geonamesLibrary', [] )
 function(                       $http,   $q,   GEONAMES_BASE_HREF,   GEONAMES_USER ) {
 
 	return function( endpoint, params ) {
->>>>>>> master
 		params = params || {};
 		var defer = $q.defer();
 
 		// hardcode user and format
-<<<<<<< HEAD
-		params.username = GEONAMES_USER;
-		params.type = 'JSON';
-
-		$http.get( url, {
-=======
 		angular.extend( params, {
 			username: GEONAMES_USER,
 			type: 'JSON',
 		});
 
 		$http.get( GEONAMES_BASE_HREF + endpoint, {
->>>>>>> master
 			params: params,
 			cache: true
 		})
@@ -55,15 +36,6 @@ function(                       $http,   $q,   GEONAMES_BASE_HREF,   GEONAMES_US
 
 // get list of countries
 // http://www.geonames.org/export/web-services.html#countryInfo
-<<<<<<< HEAD
-.factory( 'listCountries', [ 'geonamesRequest', '$interpolate', 'LIST_COUNTRIES_URL',
-                   function(  geonamesRequest,   $interpolate,   LIST_COUNTRIES_URL ) {
-
-	return function() {
-		return geonamesRequest( LIST_COUNTRIES_URL );
-	}
-}])
-=======
 .factory( 'listCountries', [ 'geonamesRequest', 'LIST_COUNTRIES_ENDPOINT',
 function(                     geonamesRequest,   LIST_COUNTRIES_ENDPOINT ) {
 
@@ -134,5 +106,4 @@ function(                listCountries,   getCountryInfo,   search,   listNeighb
 		'search': search,
 	});
 }])
->>>>>>> master
 ;
