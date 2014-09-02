@@ -10,6 +10,27 @@ h1 {
 }
 
 
+.loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: rgba( 0, 0, 0, 0.88 );
+	height: 100%;
+	z-index: 10000; /* above leaflet controls */
+	text-align: center;
+	color: #fff;
+	padding: 2em 0;
+	box-sizing: border-box;
+}
+.loading progress,
+.loading strong,
+.loading canvas {
+	display: block;
+	margin: 1em auto;
+}
+
+
 .number {
 	text-align: right;
 }
