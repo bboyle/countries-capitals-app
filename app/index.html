@@ -14,12 +14,15 @@
 	<h1>Countries and capitals</h1>
 
 
-	<aside class="loading" ng-if="loadingPercent < 100">
-		<!-- <progress max="100" value="{{ loadingPercent }}">Loading… {{ loadingPercent | number }}%</progress> -->
-		<progress>Loading…</progress>
+	<aside class="loading" ng-show="loadingPercent < 100">
+		<progress></progress>
+		<strong>Loading…</strong>
 	</aside>
 	<main ng-view autoscroll></main>
 
+
+<script src="bower_components/threejs/build/three.js"></script>
+<script src="webgl-globe.js"></script>
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
