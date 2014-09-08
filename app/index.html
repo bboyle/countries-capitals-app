@@ -5,8 +5,10 @@
 	<title>Countries and capitals</title>
 
 	<link href="//fonts.googleapis.com/css?family=Merriweather:400,700" rel="stylesheet">
+	<!-- build:css ./assets/countries-capitals.css -->
 	<link rel="stylesheet" href="countriesCapitals.css">
 	<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
+	<!-- endbuild -->
 </head>
 <body ng-app="countriesCapitalsApp">
 
@@ -21,9 +23,11 @@
 	<main ng-view autoscroll></main>
 
 
+<!-- build:js ./assets/loading-animation.js -->
 <script src="bower_components/threejs/build/three.js"></script>
 <script src="webgl-globe.js"></script>
-
+<!-- endbuild -->
+<!-- build:js ./assets/countries-capitals.js -->
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -35,7 +39,7 @@
 <script src="bower_components/angular-leaflet/dist/angular-leaflet-directive.js"></script>
 <script src="views/country/CountryCtrl.js"></script>
 <script src="countriesCapitalsApp.js"></script>
-
+<!-- endbuild -->
 	
 </body>
 </html>

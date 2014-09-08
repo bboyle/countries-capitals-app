@@ -1,0 +1,32 @@
+<table>
+	<thead>
+		<tr>
+			<td></td>
+			<th>Name</th>
+			<th>Code</th>
+			<th>Capital</th>
+			<th>Area (km<sup>2</sup>)</th>
+			<th>Population</th>
+			<th>Continent</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="country" ng-repeat="country in vm.countries | limitTo: vm.pagination.page">
+			<td class="number">{{ vm.pagination.start + $index + 1 | number }}</td>
+			<td><a href="#/countries/{{ country.countryCode }}/">{{ country.countryName }}</a></td>
+			<td>{{ country.countryCode }}</td>
+			<td>{{ country.capital }}</td>
+			<td class="number">{{ country.areaInSqKm | number : 0 }}</td>
+			<td class="number">{{ country.population | number : 0 }}</td>
+			<td>{{ country.continentName }}</td>
+		</tr>
+	</tbody>
+</table>
+
+<button ng-if="vm.pagination.showPrevious" ng-click="vm.pagination.previous()">Back</button>
+<button ng-if="vm.pagination.showNext" ng-click="vm.pagination.next()">Next</button>
+
+
+<nav>
+	<a href="#/">Home</a>
+</nav>

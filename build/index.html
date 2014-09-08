@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Countries and capitals</title>
+
+	<link href="//fonts.googleapis.com/css?family=Merriweather:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="./assets/countries-capitals.css"/>
+</head>
+<body ng-app="countriesCapitalsApp">
+
+
+	<h1>Countries and capitals</h1>
+
+
+	<aside class="loading" ng-show="loadingPercent < 100">
+		<progress></progress>
+		<strong>Loading…</strong>
+	</aside>
+	<main ng-view autoscroll></main>
+
+
+<script src="./assets/loading-animation-e2e1d83d.js"></script>
+<script src="./assets/countries-capitals-4cbafe5e.js"></script>
+	
+</body>
+</html>
